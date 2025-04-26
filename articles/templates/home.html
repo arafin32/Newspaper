@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Newspaper Home</title>
+</head>
+<body>
+    <h1>Recent Articles</h1>
+    <ul>
+        {% for article in articles %}
+            <li>{{ article.title }} - {{ article.publish_date }}</li>
+        {% empty %}
+            <li>No articles found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
