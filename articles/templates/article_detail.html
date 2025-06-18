@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <h1>{{ article.title }}</h1>
+    <p>By: {{ article.author.username|default:"Unknown" }}</p>
+    <p>Published: {{ article.publish_date }}</p>
+    <p>Created: {{ article.created_at }}</p>
+    <p>Last Updated: {{ article.updated_at }}</p>
+
+    <hr>
+    <div>
+        {{ article.content|linebreaksbr }}
+    </div>
+    <hr>
+
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <div>
+            <p><strong>{{ comment.user.username|default:"Anonymous" }}</strong>:</p>
+            <p>{{ comment.content|linebreaksbr }}</p>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    <h3>Add a Comment</h3>
+    <form action="{% url 'articles:add_comment' article.id %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_content">Comment:</label><br>
+            <textarea name="content" id="id_content" rows="4" cols="50" required></textarea>
+        </div>
+        {% if user.is_authenticated %}
+            <button type="submit">Add Comment</button>
+        {% else %}
+            <p>Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to comment.</p> {# Assuming 'login' is the name of the login URL pattern #}
+        {% endif %}
+    </form>
+
+    <hr>
+    <a href="{% url 'articles:home' %}">Back to Home</a>
+</body>
+</html>

@@ -7,7 +7,11 @@
     <h1>Recent Articles</h1>
     <ul>
         {% for article in articles %}
-            <li>{{ article.title }} - {{ article.publish_date }}</li>
+            <li>
+                <a href="{% url 'articles:article_detail' article.id %}">{{ article.title }}</a>
+                - By: {{ article.author.username|default:"Unknown" }}
+                - Published: {{ article.publish_date }}
+            </li>
         {% empty %}
             <li>No articles found.</li>
         {% endfor %}
