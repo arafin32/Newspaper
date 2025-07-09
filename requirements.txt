@@ -3,9 +3,4 @@ Django==5.2
 sqlparse==0.5.3
 tzdata==2025.2
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-    "newspaper-production-7e0d.up.railway.app"
-]
 
